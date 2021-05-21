@@ -1,20 +1,21 @@
 import json
 import os
-import pickle
+from typing import Union, List, Tuple, Dict
+from scrapy.selector import Selector
+from scrapy.http import TextResponse
 import re
-from functools import singledispatch
-from typing import Dict, List, Tuple, Union
-
-import matplotlib.pyplot as plt
-import numpy as np
+from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import RegexpTokenizer
-from scrapy.http import TextResponse
-from scrapy.selector import Selector
+from functools import singledispatch
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import learning_curve, cross_val_score
 from sklearn.dummy import DummyClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.model_selection import cross_val_score, learning_curve
+import pickle
+
+
 
 # todo quitar duplicados en el dataset
 # todo poner correctamente los anuncios hay algunos que estan mal clasificados
@@ -174,7 +175,8 @@ def word_seq_transformer(samples: List[List[str]],
 
 
 def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
-                        n_jobs=None, train_sizes=np.linspace(.1, 1.0, 5)):
+                        n_jobs=None, train_sizes=np.linspace(.1, 1.0, 5),
+						scorer=None):
 	"""
     Generate a simple plot of the test and training learning curve.
 
@@ -238,7 +240,8 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 	plt.ylabel("Score")
 
 	train_sizes, train_scores, test_scores = learning_curve(
-		estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes)
+		estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes,
+		scoring=scorer)
 
 	train_scores_mean = np.mean(train_scores, axis=1)
 	train_scores_std = np.std(train_scores, axis=1)
@@ -258,7 +261,7 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 			 label="Cross-validation score")
 
 	plt.legend(loc="best")
-	return plt
+	plt.show()
 
 
 def mean_cross_score(estimator, X, y=None, groups=None, scoring=None,
@@ -272,6 +275,21 @@ def mean_cross_score(estimator, X, y=None, groups=None, scoring=None,
 						   pre_dispatch=pre_dispatch, error_score=error_score)
 	return scores.mean()
 
+
+def clean_dataset(dataset: List):
+	rep = set()
+	new_dataset = []
+	for i in range(len(dataset)):
+		if i not in rep:
+			for j in range(i + 1, len(dataset)):
+				if dataset[i] == dataset[j]:
+					rep.add(j)
+
+	for i in range(len(dataset)):
+		if i not in rep:
+			new_dataset.append(dataset[i])
+
+	return new_dataset
 def classify(text: str, estimator: DummyClassifier, counter: CountVectorizer,
 			 tfidf_matrix: TfidfTransformer) -> str:
 	'''
@@ -335,5 +353,27 @@ def to_binary(matrix):
 
 	return result
 
+def clean_dataset2(dataset: List):
+	rep = np.zeros(len(dataset))
+	new_dataset = []
+	for i in range(len(dataset)):
+		if not rep[i]:
+			for j in range(i + 1, len(dataset)):
+				if dataset[i] == dataset[j]:
+					rep[j] = 1
+
+	for i in range(len(dataset)):
+		if not rep[i]:
+			new_dataset.append(dataset[i])
+
+	return new_dataset
+
+
+
 if __name__ == '__main__':
-	get_properties('/home/luis/Desktop/SI/jrev')
+	# create_indexes()
+	print(clean_dataset2([{'tesx': 'cosa', 'ta': ['co', 'cu']},
+						 {'text': 'qe', 'ta': ['co', 'cu']},
+						 {'tesx': 'cosa', 'ta': ['co', 'cu']}]))
+	pass
+
