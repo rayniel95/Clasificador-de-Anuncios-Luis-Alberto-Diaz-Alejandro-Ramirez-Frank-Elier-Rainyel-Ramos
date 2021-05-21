@@ -312,6 +312,28 @@ def get_properties(dsp, save_on_disk = True):
 		f.close()
 
 	return properties
+def to_tags(vectors, tags_index: dict):
+	vektor = list(vectors)
+	tags = []
+	index2tags = {value: key for key, value in tags_index.items()}
+	for ad in vektor:
+		tags.append(index2tags[list(ad).index(1.0)])
+
+	return tags
+
+
+def to_binary(matrix):
+	result = []
+
+	for vec in list(matrix):
+		max = vec.max()
+		index_max = list(vec).index(max)
+
+		new_vec = np.zeros(len(vec))
+		new_vec[index_max] = 1
+		result.append(new_vec)
+
+	return result
 
 if __name__ == '__main__':
 	get_properties('/home/luis/Desktop/SI/jrev')

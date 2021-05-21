@@ -20,7 +20,8 @@ def cluster_name(numb_clus_samples: List[int], cat_samples: List[str],
 	clus_names = {
 		i: sorted([(name, time) for (numb, name,), time in times.items()
 				   if numb == i], reverse=True, key=lambda x: x[1])[0][0]
-	for i in range(clus_numb)}
+		for i in range(clus_numb)
+	}
 	print(clus_names)
 	assert len(set(clus_names.values())) == clus_numb
 
