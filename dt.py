@@ -101,7 +101,6 @@ utils.plot_learning_curve(dt_classifier, 'decision tree recall score',
 
 
 
-
 def evaluate():
 	train_uni_bigram, test_uni_bigram, train_cats, test_cats = \
 		feature_vecs.do_uni_bigram()

@@ -23,8 +23,8 @@ RUN export HTTP_PROXY="http://192.168.49.1:8282" \
     && python3 -m pip install cython \
     && pip3 install --proxy=http://192.168.49.1:8282 --no-cache-dir -r requirements.txt
 
-RUN pip3 install --proxy=http://192.168.49.1:8282 --no-cache-dir notebook
-
+RUN pip3 install --proxy=http://192.168.49.1:8282 --no-cache-dir tensorflow==2.2.0
+RUN pip3 install --proxy=http://192.168.49.1:8282 --no-cache-dir ipykernel==5.5.5
 
 # TODO - install kite
 # TODO - install git y todas sus extensiones

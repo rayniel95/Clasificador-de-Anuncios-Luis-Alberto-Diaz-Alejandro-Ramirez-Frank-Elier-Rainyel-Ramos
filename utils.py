@@ -124,10 +124,10 @@ def create_index(path_pages: str, path_json: str, category: str):
 
 def create_indexes():
 	folder: os.DirEntry
-	for folder in os.scandir(r'C:\Users\LsW\Desktop\IA Algorithms\Refer\rev'):
+	for folder in os.scandir(r'./json cleaned 4'):
 		if folder.is_dir():
 			create_index(folder.path,
-						 r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev',
+						 r'./json cleaned 4',
 						 folder.name)
 
 
@@ -290,6 +290,7 @@ def clean_dataset(dataset: List):
 			new_dataset.append(dataset[i])
 
 	return new_dataset
+
 def classify(text: str, estimator: DummyClassifier, counter: CountVectorizer,
 			 tfidf_matrix: TfidfTransformer) -> str:
 	'''
@@ -330,6 +331,8 @@ def get_properties(dsp, save_on_disk = True):
 		f.close()
 
 	return properties
+
+
 def to_tags(vectors, tags_index: dict):
 	vektor = list(vectors)
 	tags = []
@@ -367,7 +370,6 @@ def clean_dataset2(dataset: List):
 			new_dataset.append(dataset[i])
 
 	return new_dataset
-
 
 
 if __name__ == '__main__':

@@ -36,7 +36,7 @@ def ma_lo_data_set(path: str, n_words: int) -> Tuple[Dict, Dict, Dict[str, int]]
 
 
 def do_means_embeddings():
-	train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	train_set, test_set, voc = ma_lo_data_set((r'./json cleaned 4'), 10000)
 
 	train_text = [info['text'] for info in train_set]
 	test_text = [info['text'] for info in test_set]
@@ -103,7 +103,7 @@ def do_counter() -> Tuple:
 	 set
 	:rtype:
 	'''
-	train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	train_set, test_set, voc = ma_lo_data_set((r'./json cleaned 4'), 10000)
 
 	counter_unigram = CountVectorizer()
 	counter_unigram.fit(voc)
@@ -123,7 +123,7 @@ def do_counter_whole():
 	 set
 	:rtype:
 	'''
-	train_set, test_set, _ = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	train_set, test_set, _ = ma_lo_data_set((r'./json cleaned 4'), 10000)
 
 	counter_unigram = CountVectorizer()
 	unigram_matrix_train = counter_unigram.fit_transform([' '.join(info['text'])
@@ -143,7 +143,7 @@ def do_bigram_whole():
 	'''
 	# note the little ocurrence probability of be together the most repetitive
 	# words
-	train_set, test_set, _ = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	train_set, test_set, _ = ma_lo_data_set((r'./json cleaned 4'), 10000)
 
 	counter_bigram = CountVectorizer(ngram_range=(2, 2,))
 	bigram_matrix_train = counter_bigram.fit_transform([' '.join(info['text'])
@@ -161,7 +161,7 @@ def do_uni_bigram():
 	 set
 	:rtype:
 	'''
-	train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'),10000)
+	train_set, test_set, voc = ma_lo_data_set((r'./json cleaned 4'),10000)
 
 	counter_uni_bigram = CountVectorizer(ngram_range=(1, 2,))
 	counter_uni_bigram.fit(voc)
@@ -181,7 +181,7 @@ def do_uni_bi_trigram():
 	 set
 	:rtype:
 	'''
-	train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	train_set, test_set, voc = ma_lo_data_set((r'./json cleaned 4'), 10000)
 
 	counter_uni_bi_trigram = CountVectorizer(ngram_range=(1, 3,))
 	counter_uni_bi_trigram.fit(voc)
@@ -222,7 +222,6 @@ def tfidf_matrix(count_matrix):
 
 
 
-if __name__ == '__main__':
 	# salvando la data y los objetos necesarios para los clasificadores
 	# train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'),10000)
 	#
@@ -248,9 +247,9 @@ if __name__ == '__main__':
 	# joblib.dump(tfidf_uni_bigram_train, 'tfidf_uni_bigram_train')
 	# joblib.dump(tfidf_uni_bigram_test, 'tfidf_uni_bigram_test')
 
-	train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
-	joblib.dump(train_set, 'train_set_cleaned2')
-	joblib.dump(test_set, 'test_set_cleaned2')
+	# train_set, test_set, voc = ma_lo_data_set((r'C:\Users\LsW\Desktop\IA Algorithms\Refer\jrev'), 10000)
+	# joblib.dump(train_set, 'train_set_cleaned2')
+	# joblib.dump(test_set, 'test_set_cleaned2')
 
 
 
