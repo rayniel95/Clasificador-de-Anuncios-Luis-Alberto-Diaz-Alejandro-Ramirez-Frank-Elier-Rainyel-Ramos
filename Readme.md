@@ -1,6 +1,6 @@
 # About
 
-This is the final project of my Information Systems course. The idea is to create an automatic advertisement classifier for <wwww.revolico.com>. Many machine learning models were analyzed using different metrics. The winner model was SVM.
+This is the final project of my Information Systems course. The idea is to create an automatic advertisement classifier for <https://wwww.revolico.com>. Many machine learning models were analyzed using different metrics. The winner model was SVM.
 
 ## More
 
